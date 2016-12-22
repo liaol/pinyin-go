@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"sort"
 )
@@ -16,15 +17,15 @@ var secList = []string{"ong", "ing", "eng", "ang", "vn", "un", "in", "en", "an",
 var sinList = []string{"ang", "an", "ao", "ai", "en", "er", "ou", "a", "o", "e", "i"}
 
 func main() {
-	println(IsPinyin(os.Args[1]))
+	println(IsPinyin(os.Args[1], 0))
 }
-func IsPinyin(str string) bool {
+func IsPinyin(str string, i int) bool {
 	//subStr := str[len(str)-4:]
 
-	var i = 0
+	var strLen = 0
 	var result []string
 	for len(str) > 0 {
-		strLen := 0
+		println(str)
 		if len(str) < 6-i {
 			strLen = len(str)
 		} else {
@@ -36,16 +37,16 @@ func IsPinyin(str string) bool {
 		}
 
 		subStr := str[0:strLen]
-		if sort.SearchStrings(dic, subStr) > len(subStr) {
-			result = append(result, subStr)
-			subStr = subStr[strLen:]
-			str = subStr
-			i = 0
-			continue
+		sort.Sort(sort.StringSlice(dic))
+		searchIndex := sort.SearchStrings(dic, subStr)
+		if searchIndex < len(dic) && dic[searchIndex] == subStr {
+			println(dic[searchIndex])
+			i++
+			return IsPinyin(subStr[strLen:], i)
 		}
-		i++
 	}
 
+	fmt.Println(result)
 	if len(result) > 0 {
 		return true
 	}
