@@ -14,10 +14,8 @@ var secList = []string{"ong", "ing", "eng", "ang", "vn", "un", "in", "en", "an",
 var sinList = []string{"ang", "an", "ao", "ai", "en", "er", "ou", "a", "o", "e", "i"}
 */
 
-/**
- * 检查给的字符串是否是拼音
- * 用的是最长匹配，不太准确
- */
+// IsPinyin 判断是否是拼音
+// 用的是最长匹配，不太准确
 func IsPinyin(str string) (bool, []string) {
 	var i = 0
 	var strLen = 0
